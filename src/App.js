@@ -1,7 +1,9 @@
 import './App.css';
 import 'modern-normalize/modern-normalize.css';
 import React, { Component } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ContactList from './components/ContactList';
+import ContactForm from './components/ContactForm';
 
 export default class App extends Component {
   static defaultProps = {
@@ -17,7 +19,21 @@ export default class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
+    // name: '',
+    // number: '',
+    filter: '',
+  };
+
+  addContact = (name, number) => {
+    const contact = {
+      id: uuidv4(),
+      name,
+      number,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
   };
 
   deleteContact = contactId => {
@@ -32,8 +48,8 @@ export default class App extends Component {
 
     return (
       <>
-        {/* <h1>Phonebook</h1> */}
-        {/* <ContactForm /> */}
+        <h1>Phonebook</h1>
+        <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         {/* <Filter /> */}
         <div>Contacts quantity: {contacts.length}</div>

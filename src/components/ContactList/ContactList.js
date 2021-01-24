@@ -1,5 +1,6 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
+// import { v4 as uuidv4 } from 'uuid';
 import './ContactList.css';
 
 const ContactList = ({ contacts, onDeleteContact }) => (
@@ -9,21 +10,15 @@ const ContactList = ({ contacts, onDeleteContact }) => (
         <p className="ContactList__name">
           {name}: {number}
         </p>
-        <button onClick={() => onDeleteContact(id)}>Удалить</button>
+        <button onClick={() => onDeleteContact(id)}>Delete</button>
       </li>
     ))}
   </ul>
 );
 
-// const ContactList = ({ contacts }) => (
-//   <ul>
-//     {contacts.map(({ contact }) => (
-//       <li key={contact.id}>
-//         <p>
-//           {contact.name} : {contact.number}
-//         </p>
-//       </li>
-//     ))}
-//   </ul>
-// );
+// ContactList.propTypes = {
+//   contacts: PropTypes.arrayOf(PropTypes.object),
+//   onDeleteContact: PropTypes.func,
+// };
+
 export default ContactList;
