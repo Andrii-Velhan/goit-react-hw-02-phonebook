@@ -2,8 +2,11 @@ import './App.css';
 import 'modern-normalize/modern-normalize.css';
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Container from './components/Container';
 import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
+import Filter from './components/Filter';
+import initialContacts from './bd/contacts.json';
 
 export default class App extends Component {
   static defaultProps = {
@@ -13,14 +16,7 @@ export default class App extends Component {
   static propTypes = {};
 
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    // name: '',
-    // number: '',
+    contacts: initialContacts,
     filter: '',
   };
 
@@ -40,21 +36,30 @@ export default class App extends Component {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
-    console.log(contactId);
+    // console.log(contactId);
+  };
+
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
   };
 
   render() {
-    const { contacts } = this.state;
+    const { contacts, filter } = this.state;
+    // const visibleContacts =
+    //   normalizedFilter.length > 0
+    //     ? this.state.contacts.filter(contact =>
+    //         contact.name.toLowerCase().includes(normalizedFilter),
+    //       )
+    //     : this.state.contacts;
 
     return (
-      <>
+      <Container>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
-        {/* <Filter /> */}
-        <div>Contacts quantity: {contacts.length}</div>
+        <Filter value={filter} onChangeFilter={this.changeFilter} />
         <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
-      </>
+      </Container>
     );
   }
 }
