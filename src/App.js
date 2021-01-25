@@ -39,8 +39,8 @@ export default class App extends Component {
     // console.log(contactId);
   };
 
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
   };
 
   render() {
