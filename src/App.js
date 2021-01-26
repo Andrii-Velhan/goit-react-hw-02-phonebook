@@ -31,7 +31,7 @@ export default class App extends Component {
       // item => item.name === name,
       item => item.name.toLowerCase() === name.toLowerCase(),
     )
-      ? alert(`${name} is аlready exists in contacts`)
+      ? alert(`${name} is аlready exists in contacts !!!`)
       : this.setState(({ contacts }) => ({
           contacts: [contact, ...contacts],
         }));
