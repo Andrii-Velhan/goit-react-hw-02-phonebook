@@ -27,9 +27,14 @@ export default class App extends Component {
       number,
     };
 
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-    }));
+    this.state.contacts.find(
+      // item => item.name === name,
+      item => item.name.toLowerCase() === name.toLowerCase(),
+    )
+      ? alert(`${name} is аlready exists in contacts`)
+      : this.setState(({ contacts }) => ({
+          contacts: [contact, ...contacts],
+        }));
   };
 
   deleteContact = contactId => {
@@ -43,22 +48,39 @@ export default class App extends Component {
     this.setState({ filter: event.currentTarget.value });
   };
 
+  // getVisibleContacts = () => {
+  //   const { contacts, filter } = this.state;
+  //   const normalizedFilter = filter.toLowerCase();
+
+  //   return normalizedFilter.length > 0
+  //     ? this.state.contacts.filter(contact =>
+  //         contact.name.toLowerCase().includes(normalizedFilter),
+  //       )
+  //     : this.state.contacts;
+  // };
+
   render() {
-    const { contacts, filter } = this.state;
-    // const visibleContacts =
-    //   normalizedFilter.length > 0
-    //     ? this.state.contacts.filter(contact =>
-    //         contact.name.toLowerCase().includes(normalizedFilter),
-    //       )
-    //     : this.state.contacts;
+    const { filter } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    const totalContactsCount = this.state.contacts.length;
+    const visibleContacts =
+      normalizedFilter.length > 0
+        ? this.state.contacts.filter(contact =>
+            contact.name.toLowerCase().includes(normalizedFilter),
+          )
+        : this.state.contacts;
 
     return (
       <Container>
         <h1>Phonebook</h1>
+        <p>Total contacts count: {totalContactsCount}</p>
         <ContactForm onSubmit={this.addContact} />
         <h2>Contacts</h2>
         <Filter value={filter} onChangeFilter={this.changeFilter} />
-        <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
+        <ContactList
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </Container>
     );
   }

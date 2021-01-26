@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 // import { v4 as uuidv4 } from 'uuid';
 import './ContactForm.css';
 
@@ -24,9 +24,13 @@ class ContactForm extends Component {
     event.preventDefault();
     const { name, number } = this.state;
 
-    this.props.onSubmit(name, number);
+    if (name === '' || number === '') {
+      alert('Enter data to each of inputs: [name & number] !!!');
+    } else {
+      this.props.onSubmit(name, number);
 
-    this.setState({ name: '', number: '' });
+      this.setState({ name: '', number: '' });
+    }
   };
 
   render() {

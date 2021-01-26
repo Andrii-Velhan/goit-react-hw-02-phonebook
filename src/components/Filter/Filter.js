@@ -11,7 +11,8 @@ const Filter = ({ value, onChangeFilter }) => (
       value={value}
       id="find"
       className="filterInput"
-      onChange={e => onChangeFilter(e.target.value)}
+      onChange={onChangeFilter}
+      // onChange={event => onChangeFilter(event.target.value)}
     />
   </div>
 );
